@@ -10,7 +10,7 @@ import cv2
 import imutils
 
 DATA_URL =' https://www.kaggle.com/masoudnickparvar/brain-tumor-mri-dataset/download'
-ZIP_PATH = './brain_tumor_mri_dataset.zip'
+ZIP_PATH = './dataset_sources/brain_tumor_mri_dataset.zip'
 # Download the zip file from the data url and extract it
 
 def extract_data(zip_path, extract_path):
