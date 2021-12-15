@@ -68,7 +68,7 @@ def organize_data(data_path, output_path):
                 print("Processing {}".format(name))
                 file = os.path.join(path, name)
                 print(subdirs)
-                if file.endswith('.jpg') and 'notumor' not in path:
+                if file.endswith('.jpg'):
                     original_image = cv2.imread(file)
                     
                     if(train):

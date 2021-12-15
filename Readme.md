@@ -45,16 +45,38 @@ To train the original models, use the following command:
 
 x2 model
 ```
- python main.py --model EDSR --scale 2 --patch_size 144 --save edsr_baseline_x2  
+ python main.py --model EDSR --scale 2 --patch_size 96 --save edsr_baseline_x2  
 ```
 x4 model (requires x2 model to be trained)
 
 ```
-  python main.py --model EDSR --scale 4 --patch_size 144 --save edsr_baseline_x4  --pre_train ../experiment/edsr_baseline_x2/model/model_best.pt
+  python main.py --model EDSR --scale 4 --save edsr_baseline_x4  --pre_train ../experiment/edsr_baseline_x2/model/model_best.pt
 ```
 
+## Fine tuning
+To fine tune the original models for the brain tumor dataset, use the following command:
+```
+python main.py --model EDSR --scale 4 --save edsr_brain_x4   --pre_train ../models/edsr_baseline_x4-6b446fab.pt --data_train BrainTumor --data_test BrainTumor --save_results 
+```
 
+The results from our training can be loaded by extracting the appropriate archive from the `experiment` folder.
 ## Experiments
 
-### Brain MRI image super-resolution
-We finetune the EDSR model on the brain MRI image dataset.
+Test the fine tuned model on the brain tumor dataset.
+```
+   python main.py --model EDSR --scale 4 --save edsr_brain_x4_eval   --pre_train ../models/brain_model_best.pt --data_train BrainTumor --data_test BrainTumor --save_results --test_only --self_ensemble
+```
+Test the fine tuned model on the DIV2K dataset.
+```
+python main.py --model EDSR --scale 4 --save edsr_brain_x4_eval   --pre_train ../models/brain_model_best.pt  --save_results --test_only --self_ensemble 
+```
+
+Test the original model on the Brain Tumor dataset.
+```
+python main.py --model EDSR --scale 4 --save edsr_baseline_x4_eval   --pre_train ../models/edsr_baseline_x4-6b446fab.pt  --save_results --test_only --self_ensemble --data_test BrainTumor
+```
+
+Test the original model on the DIV2K dataset.
+```
+python main.py --model EDSR --scale 4 --save edsr_baseline_x4_eval   --pre_train ../models/edsr_baseline_x4-6b446fab.pt  --save_results --test_only --self_ensemble
+```

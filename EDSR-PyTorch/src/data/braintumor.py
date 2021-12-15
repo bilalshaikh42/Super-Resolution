@@ -7,12 +7,12 @@ from data import srdata
 class BrainTumor(srdata.SRData):
     def __init__(self, args, name='BrainTumor', train=True, benchmark=False):
 
-        data_range = [[1,5000],[5000, 5023]]
+        data_range = [[1,4000],[4001, 4117]]
         if train:
             data_range = data_range[0]
         else:
             if args.test_only and len(data_range) == 1:
-                data_range = data_range[0]
+                data_range = data_range[1]
             else:
                 data_range = data_range[1]
         self.begin, self.end = list(map(lambda x: int(x), data_range))
@@ -28,7 +28,7 @@ class BrainTumor(srdata.SRData):
         # Since the data is sorted by tumor type, we want to shuffle so that validation set is not all the same type
         random.shuffle(names_hr)
         
-        
+        print(len(names_hr))
         
         names_lr = [[] for _ in self.scale]
         for f in names_hr:
@@ -40,8 +40,10 @@ class BrainTumor(srdata.SRData):
                         s, filename, s, self.ext[1]
                     )
                 ))
+
         names_hr = names_hr[self.begin - 1:self.end]
         names_lr = [n[self.begin - 1:self.end] for n in names_lr]
+
         return names_hr, names_lr
 
     
