@@ -1,0 +1,12 @@
+first clone the original repo with git clone https://github.com/thstkdgus35/EDSR-PyTorch
+next download the pretrained model from https://cv.snu.ac.kr/research/EDSR/model_pytorch.tar
+next download the DIV2K dataset from https://cv.snu.ac.kr/research/EDSR/DIV2K.tar
+
+all scripts need to be run in the /EDSR-PyTorchsrc directory 
+next run update weight.py to zero out each block of the EDSR_x4.pt pretrained model as a separate model for testing
+next run zero_loop.sh to loop over the ablated models with the test dataset
+	this outputs the results into the PSNR_ablated_res.csv file
+next run plot_ablations.py to import and plot the results of the ablated blocks
+next run train_script.sh to retrain the model with 4, 8, and 16 blocks for evaluation and comparison with the ablated models
+finally run test_trained_models.sh to test the retrained models with the test dataset
+	this outputs the results into the PSNR_retrained_res.csv file
